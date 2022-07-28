@@ -12,15 +12,23 @@ def add_city(city):
 
 def build_array():
     unique_cities = len(dict)
-    matrix = [[0]*unique_cities]*unique_cities
+    matrix = [[9999]*unique_cities]*unique_cities
     i = 0
     for key in dict.keys():
         dict[key] = i
         i = i + 1
     return matrix
 
-# def populate_array(matrix, tuples):
-#     for tuple in tuples:
+def add_weight(matrix, source, sink, weight):
+    source_index = dict[source]
+    sink_index = dict[sink]
+    matrix[source_index][sink_index] = weight
+    matrix[sink_index][source_index] = weight
+
+def populate_array(matrix, edges):
+    for edge in edges:
+        (source, sink, weight) = edge
+        add_weight(matrix, source, sink, weight)
 
 
 
@@ -54,6 +62,9 @@ matrix = build_array()
 print(dict)
 print(tuples)
 
-for arr in matrix:
-    print(arr)
+populate_array(matrix, tuples)
+
+result = sparse.csgraph.floyd_warshall(matrix)
+for distance in result:
+    print(distance)
         
